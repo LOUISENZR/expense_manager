@@ -12,30 +12,44 @@ class _LoginScreenState extends State<LoginScreen> {
   final passwordController = TextEditingController();
 
   void _login() {
-    Navigator.pushReplacementNamed(context, '/home');
+    final username = usernameController.text.trim();
+    final password = passwordController.text.trim();
+
+    if (username == 'Louise' && password == '1234') {
+      Navigator.pushReplacementNamed(context, '/home');
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Username atau password salah!'),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Login')),
+      appBar: AppBar(
+        title: const Text('Login'),
+        centerTitle: true,
+      ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(24.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const CircleAvatar(
-              radius: 50,
-              backgroundColor: Colors.blue,
-              child: Icon(Icons.person, size: 60, color: Colors.white),
+            const Text(
+              'Selamat Datang!',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 32),
             TextField(
               controller: usernameController,
               decoration: const InputDecoration(
                 labelText: 'Username',
-                border: OutlineInputBorder(),
                 prefixIcon: Icon(Icons.person),
+                border: OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 16),
@@ -44,29 +58,25 @@ class _LoginScreenState extends State<LoginScreen> {
               obscureText: true,
               decoration: const InputDecoration(
                 labelText: 'Password',
-                border: OutlineInputBorder(),
                 prefixIcon: Icon(Icons.lock),
+                border: OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 24),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: _login,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                ),
-                child: const Text(
-                  'LOGIN',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
+            ElevatedButton(
+              onPressed: _login,
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size(double.infinity, 48),
               ),
+              child: const Text('LOGIN'),
             ),
+            const SizedBox(height: 8),
             TextButton(
-              onPressed: () => Navigator.pushNamed(context, '/register'),
-              child: const Text("Belum punya akun? Daftar di sini"),
-            )
+              onPressed: () {
+                Navigator.pushNamed(context, '/register');
+              },
+              child: const Text('Belum punya akun? Daftar di sini'),
+            ),
           ],
         ),
       ),
