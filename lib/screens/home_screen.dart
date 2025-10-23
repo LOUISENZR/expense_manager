@@ -136,8 +136,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // Logout
   void _logout() {
-    Navigator.pushReplacementNamed(context, '/');
+    Navigator.pushReplacementNamed(context, '/login');
   }
+
 
   Widget _buildTextField(TextEditingController controller, String label,
       {TextInputType? keyboardType}) {
